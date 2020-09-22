@@ -1,0 +1,192 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test Api for Avada Media",
+        "contact": {
+            "email": "othompson@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://test-php-rest-api-avada-media/api",
+            "description": "Test Api for Avada Media server"
+        }
+    ],
+    "paths": {
+        "/catalogs": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Get all catalogs",
+                "operationId": "catalogsAll",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/sub_catalogs/{catalog_id}": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Get all sub catalogs",
+                "operationId": "subCatalogsById",
+                "parameters": [
+                    {
+                        "name": "catalog_id",
+                        "in": "path",
+                        "description": "The catalog number",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Records not found"
+                    }
+                }
+            }
+        },
+        "/products/{catalog_id}": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Get all catalog products",
+                "operationId": "catalogProductsById",
+                "parameters": [
+                    {
+                        "name": "catalog_id",
+                        "in": "path",
+                        "description": "The catalog number",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Records not found"
+                    }
+                }
+            }
+        },
+        "/product/{product_id}": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Get product",
+                "operationId": "showProductById",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "description": "The product number",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Records not found"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "login",
+                "operationId": "loginUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Incorrect Login/Password"
+                    }
+                },
+                "security": [
+                    {
+                        "app_id": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequest": {
+                "title": "Login data request",
+                "description": "Login data request",
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "description": "User email",
+                        "type": "string",
+                        "format": "string",
+                        "example": "test@ukr.net"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "User password",
+                        "type": "integer",
+                        "format": "string",
+                        "example": "123"
+                    }
+                },
+                "type": "object"
+            },
+            "Catalog": {}
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Pages",
+            "description": "Pages for mobile app"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ]
+}
